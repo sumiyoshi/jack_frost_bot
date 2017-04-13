@@ -8,8 +8,12 @@ defmodule BotAction.Action do
 
   def hear(_, message, slack), do: send_message("僕のこと呼んでよ！！", message.channel, slack)
 
+  def hear(_, _, _), do: :ok
+
   def respond("respond?", message, slack), do: send_message("I can respond", message.channel, slack)
 
-  def respond(_, _, _), do: send_message("はーーーーーーい！！", message.channel, slack)
+  def respond(_, message, slack), do: send_message("はーーーーーーい！！", message.channel, slack)
+
+  def respond(_, _, _), do: :ok
 
 end
