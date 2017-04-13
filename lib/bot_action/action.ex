@@ -10,6 +10,6 @@ defmodule BotAction.Action do
 
   def respond("respond?", message, slack), do: send_message("I can respond", message.channel, slack)
 
-  def respond(_, _, _), do: do: send_message("はーーーーーーい！！", message.channel, slack)
+  def respond(_, _, _), do: send_message("はーーーーーーい！！", message.channel, slack)
 
 end
