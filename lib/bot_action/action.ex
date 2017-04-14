@@ -9,12 +9,14 @@ defmodule BotAction.Action do
   def respond("われは汝", channel, slack), do: send_message("汝はわれ", channel, slack)
 
   def respond(message, channel, slack) do
-    reply = Application.get_env(:jack_frost_bot, :talk_endpoint)
-            |> HTTPoison.post!({:form, [{:apikey, Application.get_env(:jack_frost_bot, :talk_api_key)}, {:query, message}]}, [], [])
-            |> do_response_decode
-            |> do_reply()
-
-   send_message(reply <> "ぽよん", channel, slack)
+    case Application.get_env(:jack_frost_bot, :talk_endpoint)
+         |> HTTPoison.post({:form, [{:apikey, Application.get_env(:jack_frost_bot, :talk_api_key)}, {:query, message}]}, [], [])
+    do
+      {:ok, response} ->
+        reply = response |> do_response_decode() |> do_reply()
+        send_message(reply <> "ぽよん", channel, slack)
+      _ -> :ok
+    end
   end
 
   def respond(_, _, _), do: :ok
@@ -25,6 +27,6 @@ defmodule BotAction.Action do
 
   defp do_reply({%{"results" => [%{"reply" => reply}]}}), do: reply
 
-  defp do_reply({params}), do: ""
+  defp do_reply({_params}), do: ""
 
 end

@@ -14,6 +14,7 @@ defmodule JackFrostBot.Bot do
       true -> BotAction.Supervisor.start_action(state, :respond, message, slack)
       _ -> :ok
     end
+
     {:ok, state}
   end
 
