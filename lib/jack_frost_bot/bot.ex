@@ -33,7 +33,9 @@ defmodule JackFrostBot.Bot do
 
     case trigger |> Enum.count() do
       1 -> Enum.fetch!(trigger, 0)
-       _ -> Enum.fetch!(trigger, 1)
+       _ ->
+         [_|tail] = trigger
+         Enum.join(tail, " ")
     end
   end
 
