@@ -3,4 +3,6 @@
 use Mix.Config
 
 config  :jack_frost_bot,
-  api_key: System.get_env("API_KEY")
+  slack_api_key: System.get_env("SLACK_API_KEY"),
+  talk_endpoint: System.get_env("TALK_ENDPOINT"),
+  talk_api_key: System.get_env("TALK_API_KEY")

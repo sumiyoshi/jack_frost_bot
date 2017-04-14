@@ -6,14 +6,19 @@ defmodule BotAction.Supervisor do
     Task.Supervisor.start_link(opts)
   end
 
-  @doc """
-  Make new process of bot action.The process is supervised by Task.Supervisor.
-  """
-  def start_action(state, command, trigger, message, slack) do
+  @doc false
+  def start_action(state, command, message, slack) do
     Task.Supervisor.start_child(state[:sup_action], fn ->
+
+      trigger = String.split(message.text, ~r{ |　})
+
+      trigger = case trigger |> Enum.count() do
+        1 -> Enum.fetch!(trigger, 0)
+         _ -> Enum.fetch!(trigger, 1)
+      end
+
       case command do
-        :respond -> BotAction.Action.respond(trigger, message, slack)
-        :hear -> BotAction.Action.hear(trigger, message, slack)
+        :respond -> BotAction.Action.respond(trigger, message.channel, slack)
         _ -> :ok
       end
     end)

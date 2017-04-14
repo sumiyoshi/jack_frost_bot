@@ -10,11 +10,7 @@ defmodule JackFrostBot.Supervisor do
   @action_sup_name BotAction.Supervisor
 
   def init(:ok) do
-    api_key = case System.get_env("API_KEY") do
-      nil -> Application.get_env(:jack_frost_bot, :api_key)
-      key -> key
-    end
-
+    api_key = Application.get_env(:jack_frost_bot, :slack_api_key)
     table = :ets.new(:work_bot, [:set, :public])
 
     children = [
