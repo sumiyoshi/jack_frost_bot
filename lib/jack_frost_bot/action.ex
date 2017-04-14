@@ -1,25 +1,19 @@
-defmodule BotAction.Action do
+defmodule JackFrostBot.Action do
 
   @moduledoc false
 
-  use Slack
+  @end_of_word "ぽよん"
 
-  def respond("hi!", channel, slack), do: send_message("hi！", channel, slack)
-
-  def respond("われは汝", channel, slack), do: send_message("汝はわれ", channel, slack)
-
-  def respond(message, channel, slack) do
+  def respond(message) do
     case Application.get_env(:jack_frost_bot, :talk_endpoint)
          |> HTTPoison.post({:form, [{:apikey, Application.get_env(:jack_frost_bot, :talk_api_key)}, {:query, message}]}, [], [])
     do
       {:ok, response} ->
         reply = response |> do_response_decode() |> do_reply()
-        send_message(reply <> "ぽよん", channel, slack)
-      _ -> :ok
+        reply <> @end_of_word
+      _ -> @end_of_word
     end
   end
-
-  def respond(_, _, _), do: :ok
 
   defp do_response_decode(%HTTPoison.Response{body: body}), do: {Poison.decode!(body)}
 
