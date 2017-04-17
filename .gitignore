@@ -22,3 +22,5 @@ erl_crash.dump
 start.sh
 
 /config/*.secret.exs
+
+/work

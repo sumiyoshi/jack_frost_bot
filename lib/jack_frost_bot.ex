@@ -6,4 +6,5 @@ defmodule JackFrostBot do
   def start(_type, _args) do
     JackFrostBot.Supervisor.start_link
   end
+
 end
