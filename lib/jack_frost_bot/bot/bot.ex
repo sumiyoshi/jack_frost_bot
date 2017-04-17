@@ -19,7 +19,7 @@ defmodule JackFrostBot.Bot do
           send_message("記憶したなり！", message.channel, slack)
         end
       String.starts_with?(message.text, "<@#{slack.me.id}> ") ->
-        JackFrostBot.Action.respond(trigger(message)) |> send_message(message.channel, slack)
+        JackFrostBot.Action.respond(trigger(message)) |> reply(message.channel, slack)
       true -> :ok
     end
 
@@ -27,6 +27,16 @@ defmodule JackFrostBot.Bot do
   end
 
   def handle_event(_, _, state), do: {:ok, state}
+
+  defp reply(response, channel, slack) when is_list(response) do
+    response
+    |> Enum.map(fn(str) ->
+      send_message(str, channel, slack)
+      :timer.sleep(1000)
+    end)
+  end
+
+  defp reply(response, channel, slack), do: send_message(response, channel, slack)
 
   defp trigger(message) do
     trigger = String.split(message.text, ~r{ |　})

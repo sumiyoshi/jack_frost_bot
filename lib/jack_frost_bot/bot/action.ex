@@ -5,6 +5,10 @@ defmodule JackFrostBot.Action do
   @end_of_word "ぽよん"
   @memory_path "data/memory.json"
 
+  def respond("歌って") do
+    JackFrostBot.FileCommand.read("data/sing.txt")
+  end
+
   def respond(message) do
 
     memory = get_memory()
