@@ -4,10 +4,11 @@ defmodule JackFrostBot.Bot do
 
   use Slack
 
+  alias JackFrostBot.GeneralRegistry
+
   def handle_connect(slack, state) do
-    JackFrostBot.GeneralRegistry.set_general_id(slack)
-#    send_message("参上！", channel, slack)
-    IO.inspect("ログイン!")
+    GeneralRegistry.set_general_id(slack)
+    reply("ようこそ…我がベルベットルームへ", GeneralRegistry.get_id(), slack)
 
     {:ok, state}
   end

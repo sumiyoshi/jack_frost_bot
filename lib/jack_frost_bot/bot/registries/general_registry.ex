@@ -9,7 +9,7 @@ defmodule JackFrostBot.GeneralRegistry do
   @spec set_general_id(any) :: any
   def set_general_id(slack) do
     channel_id = Enum.reduce(slack.channels, "", fn({id, channel}, acc) ->
-      case channel.is_general do
+      case channel.name == "velvet_room" do
         true -> id
         _ -> acc
       end

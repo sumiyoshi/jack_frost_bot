@@ -7,6 +7,7 @@ defmodule JackFrostBot.Action do
   """
 
   alias JackFrostBot.ReplyAction
+  alias JackFrostBot.ScheduleAction
 
   @spec respond(String.t) :: String.t
   def respond(message), do: ReplyAction.respond(message)
@@ -14,4 +15,6 @@ defmodule JackFrostBot.Action do
   @spec memory(String.t | Atom.t, String.t | Atom.t) :: :ok | {:error, any}
   def memory(key, val), do: ReplyAction.memory(key, val)
 
+  @spec time_report() :: String.t
+  def time_report(), do: ScheduleAction.time_report()
 end
