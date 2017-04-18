@@ -12,7 +12,8 @@ defmodule JackFrostBot.Supervisor do
     api_key = Application.get_env(:jack_frost_bot, :slack_api_key)
 
     children = [
-      worker(Slack.Bot, [JackFrostBot.Bot, [], api_key])
+      worker(Slack.Bot, [JackFrostBot.Bot, [], api_key]),
+      supervisor(Registry, JackFrostBot.GeneralRegistry.opts())
     ]
 
     supervise(children, strategy: :one_for_one)
