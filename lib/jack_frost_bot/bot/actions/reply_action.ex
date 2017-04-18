@@ -26,8 +26,12 @@ defmodule JackFrostBot.ReplyAction do
 
   @spec respond(String.t) :: String.t
   defp request_api(message) do
-    case Application.get_env(:jack_frost_bot, :talk_endpoint)
-         |> HTTPoison.post({:form, [{:apikey, Application.get_env(:jack_frost_bot, :talk_api_key)}, {:query, message}]}, [], [])
+    case HTTPoison.post(
+      Application.get_env(:jack_frost_bot, :talk_endpoint),
+      {:form, [{:apikey, Application.get_env(:jack_frost_bot, :talk_api_key)},
+      {:query, message}]},
+      [],
+      [])
     do
       {:ok, response} ->
         reply = response |> do_response_decode() |> do_reply()
