@@ -1,5 +1,9 @@
 defmodule JackFrostBot do
-  @moduledoc false
+  @moduledoc """
+
+    JackFrostBot
+
+  """
 
   use Application
 

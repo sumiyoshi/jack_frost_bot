@@ -1,7 +1,12 @@
-defmodule JackFrostBot.FileCommand do
+defmodule JackFrostBot.FileRepo do
 
-  @moduledoc false
+  @moduledoc  """
 
+    JackFrostBot.FileRepo
+
+  """
+
+  @spec read(String.t) :: List.t
   def read(input) do
     case File.read(input) do
       {:ok, body} -> body |> String.split("\n")
@@ -9,10 +14,9 @@ defmodule JackFrostBot.FileCommand do
     end
   end
 
-  def read(), do: []
-
+  @spec read_json(String.t) :: Map.t
   def read_json(input) do
-    JackFrostBot.FileCommand.read(input)
+    JackFrostBot.FileRepo.read(input)
     |> Enum.map(fn(line) ->
        case Poison.decode line do
          {:ok, body} -> body
@@ -22,16 +26,18 @@ defmodule JackFrostBot.FileCommand do
     |> Enum.at(0)
   end
 
+  @spec write(any, String.t) :: :ok | {:error, any}
   def write(content, path) do
     File.write(path, content)
   end
 
+  @spec write_json(any, String.t) :: :ok | {:error, any}
   def write_json(content, path) do
     case Poison.encode content do
       {:ok, body} -> body
       _ -> %{}
     end
-    |> JackFrostBot.FileCommand.write(path)
+    |> JackFrostBot.FileRepo.write(path)
   end
 
 end
