@@ -9,7 +9,7 @@ defmodule JackFrostBot.FileRepo do
   @spec read(String.t) :: List.t
   def read(input) do
     case File.read(input) do
-      {:ok, body} -> body |> String.split("\n")
+      {:ok, body} -> String.split(body, "\n")
       _ -> []
     end
   end
@@ -33,11 +33,12 @@ defmodule JackFrostBot.FileRepo do
 
   @spec write_json(any, String.t) :: :ok | {:error, any}
   def write_json(content, path) do
-    case Poison.encode content do
+    body = case Poison.encode content do
       {:ok, body} -> body
       _ -> %{}
     end
-    |> JackFrostBot.FileRepo.write(path)
+
+    JackFrostBot.FileRepo.write(body, path)
   end
 
 end
