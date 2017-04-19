@@ -6,7 +6,7 @@ defmodule JackFrostBot.ScheduleAction do
 
   @spec lunch() :: String.t
   def lunch() do
-    send_message("ジャックフロストが午前12時をお知らせ中")
+    send_message("ジャックフロストが12時をお知らせ中")
   end
 
   def send_message(message) do
