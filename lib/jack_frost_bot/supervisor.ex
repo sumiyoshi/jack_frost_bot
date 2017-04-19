@@ -13,7 +13,7 @@ defmodule JackFrostBot.Supervisor do
 
     children = [
       worker(Slack.Bot, [JackFrostBot.Bot, [], api_key]),
-      supervisor(Registry, JackFrostBot.GeneralRegistry.opts())
+      supervisor(Registry, JackFrostBot.SlackRegistry.opts())
     ]
 
     supervise(children, strategy: :one_for_one)

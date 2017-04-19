@@ -11,14 +11,15 @@ defmodule JackFrostBot.Mixfile do
   end
 
   def application do
-    [applications: [:logger, :slack],
+    [applications: [:logger, :slack, :quantum],
      mod: {JackFrostBot, []}]
   end
 
   defp deps do
     [
       {:slack, "~> 0.11.0"},
-      {:poison, "~> 1.5"}
+      {:poison, "~> 1.5"},
+      {:quantum, "~> 1.9"}
     ]
   end
 end

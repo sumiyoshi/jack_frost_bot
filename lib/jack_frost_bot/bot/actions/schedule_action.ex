@@ -1,10 +1,16 @@
 defmodule JackFrostBot.ScheduleAction do
   @moduledoc false
 
-  @spec time_report() :: String.t
-  def time_report() do
-    {{y, m, d}, {h, i, s}} = :calendar.local_time()
-    "#{y}年#{m}月#{d}日 #{h}時#{i}分#{s}秒"
+  alias JackFrostBot.SlackRegistry
+  alias Slack.Sends
+
+  @spec lunch() :: String.t
+  def lunch() do
+    send_message("ジャックフロストが午前12時をお知らせ中")
+  end
+
+  def send_message(message) do
+    Sends.send_message(message, SlackRegistry.get_id(), SlackRegistry.get_slack())
   end
 
 end

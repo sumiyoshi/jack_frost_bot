@@ -4,4 +4,10 @@ use Mix.Config
 #  talk_endpoint: "",
 #  talk_api_key: ""
 
+
+config :quantum, :jack_frost_bot,
+cron: [
+    "00 12 * * 1-5": {JackFrostBot.ScheduleAction, :lunch}
+]
+
 import_config "prod.secret.exs"
