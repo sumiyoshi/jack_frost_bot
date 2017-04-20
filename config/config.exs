@@ -7,7 +7,7 @@ use Mix.Config
 
 config :quantum, :jack_frost_bot,
 cron: [
-    "0 15 * * 1-5": {JackFrostBot.ScheduleAction, :lunch}
+    "0 12 * * 1-5": {JackFrostBot.ScheduleAction, :lunch}
 ]
 
 config :quantum,
