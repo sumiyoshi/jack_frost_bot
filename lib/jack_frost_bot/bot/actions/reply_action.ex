@@ -6,6 +6,14 @@ defmodule JackFrostBot.ReplyAction do
   @memory_path "data/memory.json"
 
   @spec respond(String.t) :: String.t
+  def respond("元気のでる言葉") do
+    reply = JackFrostBot.FileRepo.read("data/quotation.txt")
+              |> Enum.shuffle()
+              |> Enum.at(1)
+              |> String.replace("END_OF_LINE", "\r")
+    reply <> @end_of_word
+  end
+
   def respond(message) do
 
     memory = get_memory()
