@@ -6,7 +6,7 @@ use Mix.Config
 
 
 config :quantum, :jack_frost_bot,
-timezone: :jst,
+timezone: :local,
 cron: [
     "0 12 * * 1-5": {JackFrostBot.ScheduleAction, :lunch}
 ]
