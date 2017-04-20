@@ -51,8 +51,8 @@ defmodule JackFrostBot.Bot do
   defp get_main_channel(slack) do
     Enum.reduce(slack.channels, "", fn({id, channel}, acc) ->
 
-#      case channel.is_general do
-      case channel.name == "velvet_room" do
+      case channel.is_general do
+#      case channel.name == "velvet_room" do
         true -> id
         _ -> acc
       end
