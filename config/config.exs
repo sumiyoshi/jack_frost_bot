@@ -6,9 +6,11 @@ use Mix.Config
 
 
 config :quantum, :jack_frost_bot,
-timezone: :local,
 cron: [
-    "0 12 * * 1-5": {JackFrostBot.ScheduleAction, :lunch}
+    "0 15 * * 1-5": {JackFrostBot.ScheduleAction, :lunch}
 ]
+
+config :quantum,
+  timezone: "Asia/Tokyo"
 
 import_config "prod.secret.exs"
