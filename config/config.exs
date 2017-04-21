@@ -1,9 +1,4 @@
 use Mix.Config
-#config  :jack_frost_bot,
-#  slack_api_key: "",
-#  talk_endpoint: "",
-#  talk_api_key: ""
-
 
 config :quantum, :jack_frost_bot,
 cron: [
@@ -13,4 +8,4 @@ cron: [
 config :quantum,
   timezone: "Asia/Tokyo"
 
-import_config "prod.secret.exs"
+import_config "#{Mix.env}.exs"

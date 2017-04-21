@@ -9,7 +9,7 @@ defmodule JackFrostBot.Supervisor do
   end
 
   def init(:ok) do
-    api_key = Application.get_env(:jack_frost_bot, :slack_api_key)
+    api_key = Application.get_env(:slack, :api_token)
 
     children = [
       worker(Slack.Bot, [JackFrostBot.Bot, [], api_key]),

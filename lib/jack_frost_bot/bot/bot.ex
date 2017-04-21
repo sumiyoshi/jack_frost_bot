@@ -8,7 +8,9 @@ defmodule JackFrostBot.Bot do
   alias JackFrostBot.ReplyAction
 
   def handle_connect(slack, state) do
-    SlackRegistry.set_channel_id(get_main_channel(slack))
+
+
+    SlackRegistry.set_channel_id(lookup_channel_id(Application.get_env(:jack_frost_bot, :main_channel), slack))
     SlackRegistry.set_slack(slack)
     reply("参上！", SlackRegistry.get_id(), slack)
 
@@ -46,17 +48,6 @@ defmodule JackFrostBot.Bot do
          [_|tail] = trigger
          Enum.join(tail, " ")
     end
-  end
-
-  defp get_main_channel(slack) do
-    Enum.reduce(slack.channels, "", fn({id, channel}, acc) ->
-
-      case channel.is_general do
-#      case channel.name == "velvet_room" do
-        true -> id
-        _ -> acc
-      end
-    end)
   end
 
 end
