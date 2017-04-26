@@ -36,13 +36,15 @@ defmodule JackFrostBot.ReplyAction do
   defp request_api(message) do
     case HTTPoison.post(
       Application.get_env(:jack_frost_bot, :talk_endpoint),
-      {:form, [{:apikey, Application.get_env(:jack_frost_bot, :talk_api_key)},
-      {:query, message}]},
+      {:form, [
+        {:key, Application.get_env(:jack_frost_bot, :talk_api_key)},
+        {:message, message}
+      ]},
       [],
-      [])
+      [hackney: [:insecure]])
     do
       {:ok, response} ->
-        reply = response |> do_response_decode() |> do_reply()
+        reply =  do_response_decode(response) |> do_reply()
         reply <> @end_of_word
       _ -> @end_of_word
     end
@@ -56,7 +58,7 @@ defmodule JackFrostBot.ReplyAction do
   defp do_response_decode(response), do: response
 
   @spec do_reply(Tuple.t) :: String.t
-  defp do_reply({%{"results" => [%{"reply" => reply}]}}), do: reply
+  defp do_reply({%{"result" => reply}}), do: reply
   defp do_reply({_params}), do: ""
 
 end
