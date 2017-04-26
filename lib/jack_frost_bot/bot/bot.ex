@@ -8,8 +8,6 @@ defmodule JackFrostBot.Bot do
   alias JackFrostBot.ReplyAction
 
   def handle_connect(slack, state) do
-
-
     SlackRegistry.set_channel_id(lookup_channel_id(Application.get_env(:jack_frost_bot, :main_channel), slack))
     SlackRegistry.set_slack(slack)
     reply("参上！", SlackRegistry.get_id(), slack)
@@ -25,10 +23,10 @@ defmodule JackFrostBot.Bot do
       String.starts_with?(message.text, "<@#{slack.me.id}> #") ->
         value = String.split(String.replace(trigger(message), "#", ""), "=")
         if (Enum.count(value) == 2) do
-          reply(ReplyAction.memory(Enum.at(value, 0), Enum.at(value, 1)), message.channel, slack)
+          reply("<@#{message.user}> " <> ReplyAction.memory(Enum.at(value, 0), Enum.at(value, 1)), message.channel, slack)
         end
       String.starts_with?(message.text, "<@#{slack.me.id}> ") ->
-        reply(ReplyAction.respond(trigger(message)), message.channel, slack)
+        reply("<@#{message.user}> " <> ReplyAction.respond(trigger(message)), message.channel, slack)
       true -> :ok
     end
 
