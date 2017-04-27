@@ -60,7 +60,7 @@ defmodule JackFrostBot.ReplyAction do
 
   @spec do_reply(Tuple.t) :: String.t
   defp do_reply({%{"result" => reply}}), do: reply
-  
-  defp do_reply({_params}), do: ""
+
+  defp do_reply({_params}), do: "わからんちん"
 
 end
