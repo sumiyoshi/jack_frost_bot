@@ -55,10 +55,12 @@ defmodule JackFrostBot.ReplyAction do
 
   @spec do_response_decode(any) :: Tuple.t
   defp do_response_decode(%HTTPoison.Response{body: body}), do: {Poison.decode!(body)}
+
   defp do_response_decode(response), do: response
 
   @spec do_reply(Tuple.t) :: String.t
   defp do_reply({%{"result" => reply}}), do: reply
+  
   defp do_reply({_params}), do: ""
 
 end

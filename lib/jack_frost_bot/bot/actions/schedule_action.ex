@@ -33,8 +33,8 @@ defmodule JackFrostBot.ScheduleAction do
         end
     end
   end
-  defp pickup_response(_), do: nil
 
+  defp pickup_response(_), do: nil
 
   def send_message(message) do
     Sends.send_message(message, SlackRegistry.get_id(), SlackRegistry.get_slack())
