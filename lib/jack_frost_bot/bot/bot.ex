@@ -10,7 +10,7 @@ defmodule JackFrostBot.Bot do
   def handle_connect(slack, state) do
     SlackRegistry.set_channel_id(lookup_channel_id(Application.get_env(:jack_frost_bot, :main_channel), slack))
     SlackRegistry.set_slack(slack)
-    reply("参上！", SlackRegistry.get_id(), slack)
+    IO.inspect("参上！")
 
     {:ok, state}
   end

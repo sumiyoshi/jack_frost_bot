@@ -32,7 +32,7 @@ defmodule JackFrostBot.ReplyAction do
     "記憶したなり！"
   end
 
-  @spec respond(String.t) :: String.t
+  @spec request_api(String.t) :: String.t
   defp request_api(message) do
     case HTTPoison.post(
       Application.get_env(:jack_frost_bot, :talk_endpoint),
