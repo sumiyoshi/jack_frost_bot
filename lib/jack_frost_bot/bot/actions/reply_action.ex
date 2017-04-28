@@ -38,14 +38,13 @@ defmodule JackFrostBot.ReplyAction do
       Application.get_env(:jack_frost_bot, :talk_endpoint),
       {:form, [
         {:key, Application.get_env(:jack_frost_bot, :talk_api_key)},
-        {:message, message}
+        {:message, message},
+        {:character_type, "custom"}
       ]},
       [],
       [hackney: [:insecure]])
     do
-      {:ok, response} ->
-        reply =  do_response_decode(response) |> do_reply()
-        reply <> @end_of_word
+      {:ok, response} -> do_response_decode(response) |> do_reply()
       _ -> @end_of_word
     end
   end
